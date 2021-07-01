@@ -94,9 +94,9 @@ def indore():
 
 
 def mcx():
-     URL = "http://95.216.2.220/com/24rate/rtmcxv5.html"
+     URL = "https://mcxlive.org/"
      scraper = cloudscraper.create_scraper()
-     r = scraper.get(URL, timeout=60 )
+     r = scraper.get(URL)
           
      soup = BeautifulSoup(r.text, "html.parser")
      #soup = BeautifulSoup(r.content, 'html5lib')
@@ -107,7 +107,7 @@ def mcx():
      headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>MCX LIVE RATES</h1> <br>'
 
      jinjabhai2 = "{% endblock %}"
-     table = soup.find('body')  
+     table = soup.find_all('table', {'class':'main-table'})  
                    
      with open('templates/mcx.html', 'w+', encoding='utf-8') as f:
                f.write(jinjabhai+ headline + str(table) + jinjabhai2)

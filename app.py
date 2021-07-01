@@ -93,7 +93,26 @@ def indore():
      return table
 
 
+# def mcx():
+#      URL = "http://95.216.2.220/com/24rate/rtmcxv5.html"
+#      scraper = cloudscraper.create_scraper()
+#      r = scraper.get(URL, timeout=60 )
+          
+#      soup = BeautifulSoup(r.text, "html.parser")
+#      #soup = BeautifulSoup(r.content, 'html5lib')
+     
+#      jinjabhai = """{% extends 'index.html' %}
+#      {% block content %}
+#      """
+#      headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>MCX LIVE RATES</h1> <br>'
 
+#      jinjabhai2 = "{% endblock %}"
+#      table = soup.find('body')  
+                   
+#      with open('templates/mcx.html', 'w+', encoding='utf-8') as f:
+#                f.write(jinjabhai+ headline + str(table) + jinjabhai2)
+
+#      return table
         
 
 app = Flask(__name__)
@@ -127,6 +146,11 @@ def badnag():
 def ind():
     indo = indore()
     return render_template('indore.html')
+
+@app.route('/mcx')
+def mxc():
+    # m = mcx()
+    return render_template('mcx.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

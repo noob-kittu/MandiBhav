@@ -94,7 +94,7 @@ def indore():
 
 
 def mcx():
-     URL = "https://mcxlive.org/"
+     URL = "https://mcxdata.in/"
      scraper = cloudscraper.create_scraper()
      r = scraper.get(URL)
           
@@ -107,7 +107,7 @@ def mcx():
      headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>MCX LIVE RATES</h1> <br>'
 
      jinjabhai2 = "{% endblock %}"
-     table = soup.find_all('table', {'class':'main-table'})  
+     table = soup.find_all('table', {'id':'fullMcxPriceTable'})  
                    
      with open('templates/mcx.html', 'w+', encoding='utf-8') as f:
                f.write(jinjabhai+ headline + str(table) + jinjabhai2)
@@ -119,9 +119,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    nimach = neemuch()
-    mandsor = mandsore()
-    badnag = Badnagar()
     return render_template('home.html')
 
 
@@ -153,4 +150,4 @@ def mxc():
     return render_template('mcx.html')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

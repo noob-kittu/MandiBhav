@@ -10,11 +10,10 @@
       ],   
    "repository": "https://github.com/noob-kittu/MandiBhav",
       
-     "env":{
         "URL": {
          "description": "The Heroku App URL :-  https://<appname>.herokuapp.com/",
          "required": false,
          "value": ""
         },
-     }
+     
 }

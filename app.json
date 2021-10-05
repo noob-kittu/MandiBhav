@@ -1,4 +1,4 @@
-   {
+{
       "name": "MandiBhav",
       "description": "Flask Application.",
       "keywords": [
@@ -8,12 +8,6 @@
          "Farmers",
          "MandiRates"
       ],   
-   "repository": "https://github.com/noob-kittu/MandiBhav",
+    "repository": "https://github.com/noob-kittu/MandiBhav",
       
-        "URL": {
-         "description": "The Heroku App URL :-  https://<appname>.herokuapp.com/",
-         "required": false,
-         "value": ""
-        },
-     
 }

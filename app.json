@@ -1,13 +1,7 @@
 {
-      "name": "MandiBhav",
-      "description": "Flask Application.",
-      "keywords": [
-         "Flask",
-         "Application",
-         "MAndibhav",
-         "Farmers",
-         "MandiRates"
-      ],   
-    "repository": "https://github.com/noob-kittu/MandiBhav",
-      
+  "name": "mandibhav",
+  "description": "A flask app tp get daily rates of mandies",
+  "repository": "https://github.com/noob-kittu/MandiBhav",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["flask", "mandibhav", "static"]
 }

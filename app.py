@@ -2,95 +2,27 @@ from flask import Flask, render_template
 from bs4 import BeautifulSoup
 import cloudscraper
 
-def neemuch():
-     URL = "https://ekisan.net/neemuch-mandi-bhav/"
-     scraper = cloudscraper.create_scraper()
-     r = scraper.get(URL)
-          
-     soup = BeautifulSoup(r.text, "html.parser")
-     #soup = BeautifulSoup(r.content, 'html5lib')
-     
-     jinjabhai = """{% extends 'index.html' %}
-     {% block content %}
-     """
-
-     headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>Neemuch Mandi Bhav!</h1> <br>'
-     jinjabhai2 = "{% endblock %}"
-     table = soup.find('table')  
-                   
-     with open('templates/neemuch.html', 'w+', encoding='utf-8') as f:
-               f.write(jinjabhai+ headline +str(table) + jinjabhai2)
-
-     return table
- 
- 
-def mandsore():
-     URL = "https://ekisan.net/mandsaur-mandi-bhav/"
-     scraper = cloudscraper.create_scraper()
-     r = scraper.get(URL)
-          
-     soup = BeautifulSoup(r.text, "html.parser")
-     #soup = BeautifulSoup(r.content, 'html5lib')
-     
-     jinjabhai = """{% extends 'index.html' %}
-     {% block content %}
-     """
-     headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>Mandsore Mandi Bhav!</h1> <br>'
-
-     jinjabhai2 = "{% endblock %}"
-     table = soup.find('table')  
-                   
-     with open('templates/mandsore.html', 'w+', encoding='utf-8') as f:
-               f.write(jinjabhai+ headline + str(table) + jinjabhai2)
-
-     return table
-
-
- 
-def Badnagar():
-     URL = "https://ekisan.net/badnagar-mandi-bhav/"
-     scraper = cloudscraper.create_scraper()
-     r = scraper.get(URL)
-          
-     soup = BeautifulSoup(r.text, "html.parser")
-     #soup = BeautifulSoup(r.content, 'html5lib')
-     
-     jinjabhai = """{% extends 'index.html' %}
-     {% block content %}
-     """
-     headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>Badnagar Mandi Bhav!</h1> <br>'
-
-     jinjabhai2 = "{% endblock %}"
-     table = soup.find('table')  
-                   
-     with open('templates/badnagar.html', 'w+', encoding='utf-8') as f:
-               f.write(jinjabhai+ headline + str(table) + jinjabhai2)
-
-     return table
-
-
-
-
-def indore():
-     URL = "https://ekisan.net/indore-mandi-bhav/"
-     scraper = cloudscraper.create_scraper()
-     r = scraper.get(URL)
-          
-     soup = BeautifulSoup(r.text, "html.parser")
-     #soup = BeautifulSoup(r.content, 'html5lib')
-     
-     jinjabhai = """{% extends 'index.html' %}
-     {% block content %}
-     """
-     headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>Indore Mandi Bhav!</h1> <br>'
-
-     jinjabhai2 = "{% endblock %}"
-     table = soup.find('table')  
-                   
-     with open('templates/indore.html', 'w+', encoding='utf-8') as f:
-               f.write(jinjabhai+ headline + str(table) + jinjabhai2)
-
-     return table
+class Mandirate:
+    def __init__(self, url, city_name):
+        self.url = url
+        self.city_name = city_name
+        self.scraper = cloudscraper.create_scraper()
+    
+    def scrape(self):
+        r = self.scraper.get(self.url)
+        soup = BeautifulSoup(r.text, "html.parser")
+        table = soup.find('table')
+        return table
+    
+    def save_to_file(self, table):
+        jinjabhai = """{% extends 'index.html' %}
+        {% block content %}
+        """
+        headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>{} Mandi Bhav!</h1> <br>'.format(self.city_name)
+        jinjabhai2 = "{% endblock %}"
+        
+        with open('templates/{}.html'.format(self.city_name), 'w+', encoding='utf-8') as f:
+            f.write(jinjabhai + headline + str(table) + jinjabhai2)
 
 
 def mcx():
@@ -124,25 +56,25 @@ def home():
 
 @app.route('/neemuch')
 def nim():
-    nimach = neemuch()
-    return render_template('neemuch.html')
+    neemuch = Mandirate("https://ekisan.net/neemuch-mandi-bhav/", "Neemuch")
+    return render_template('Neemuch.html')
 
 
 @app.route('/mandsore')
 def mands():
-    mandsor = mandsore()
-    return render_template('mandsore.html')
+    mandsore = Mandirate("https://ekisan.net/mandsaur-mandi-bhav/", "Mandsore")
+    return render_template('Mandsore.html')
 
 @app.route('/badnagar')
 def badnag():
-    badnag = Badnagar()
-    return render_template('badnagar.html')
+    Badnagar = Mandirate("https://ekisan.net/badnagar-mandi-bhav/", "Badnagar")
+    return render_template('Badnagar.html')
 
 
 @app.route('/indore')
 def ind():
-    indo = indore()
-    return render_template('indore.html')
+    indore = Mandirate("https://ekisan.net/indore-mandi-bhav/", "Indore")
+    return render_template('Indore.html')
 
 @app.route('/mcx')
 def mxc():
@@ -150,4 +82,4 @@ def mxc():
     return render_template('mcx.html')
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

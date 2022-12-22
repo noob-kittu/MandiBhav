@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from bs4 import BeautifulSoup
 import cloudscraper
-import asyncio
 
 class Mandirate:
     def __init__(self, url, city_name):
@@ -65,4 +64,4 @@ def indor():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

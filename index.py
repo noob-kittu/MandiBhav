@@ -55,25 +55,25 @@ def home():
 
 
 @app.route('/neemuch')
-def nim():
-    neemuch = Mandirate("https://ekisan.net/neemuch-mandi-bhav/", "Neemuch")
+def nimach():
+    Mandirate("https://ekisan.net/neemuch-mandi-bhav/", "Neemuch")
     return render_template('Neemuch.html')
 
 
 @app.route('/mandsore')
-def mands():
-    mandsore = Mandirate("https://ekisan.net/mandsaur-mandi-bhav/", "Mandsore")
+def mandsor():
+    Mandirate("https://ekisan.net/mandsaur-mandi-bhav/", "Mandsore")
     return render_template('Mandsore.html')
 
 @app.route('/badnagar')
-def badnag():
-    Badnagar = Mandirate("https://ekisan.net/badnagar-mandi-bhav/", "Badnagar")
+def badnagar():
+    Mandirate("https://ekisan.net/badnagar-mandi-bhav/", "Badnagar")
     return render_template('Badnagar.html')
 
 
 @app.route('/indore')
-def ind():
-    indore = Mandirate("https://ekisan.net/indore-mandi-bhav/", "Indore")
+def indor():
+    Mandirate("https://ekisan.net/indore-mandi-bhav/", "Indore")
     return render_template('Indore.html')
 
 @app.route('/mcx')

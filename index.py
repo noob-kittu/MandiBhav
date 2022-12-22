@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from bs4 import BeautifulSoup
 import cloudscraper
+import asyncio
 
 class Mandirate:
     def __init__(self, url, city_name):
@@ -25,28 +26,6 @@ class Mandirate:
             f.write(jinjabhai + headline + str(table) + jinjabhai2)
 
 
-def mcx():
-     URL = "https://mcxdata.in/"
-     scraper = cloudscraper.create_scraper()
-     r = scraper.get(URL)
-          
-     soup = BeautifulSoup(r.text, "html.parser")
-     #soup = BeautifulSoup(r.content, 'html5lib')
-     
-     jinjabhai = """{% extends 'index.html' %}
-     {% block content %}
-     """
-     headline = '<br> <button class="btn btn-primary" onclick="history.back()">Go back!</button><h1>MCX LIVE RATES</h1> <br>'
-
-     jinjabhai2 = "{% endblock %}"
-     table = soup.find_all('table', {'id':'fullMcxPriceTable'})  
-                   
-     with open('templates/mcx.html', 'w+', encoding='utf-8') as f:
-               f.write(jinjabhai+ headline + str(table) + jinjabhai2)
-
-     return table
-        
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -56,30 +35,34 @@ def home():
 
 @app.route('/neemuch')
 def nimach():
-    Mandirate("https://ekisan.net/neemuch-mandi-bhav/", "Neemuch")
+    mandirate = Mandirate("https://ekisan.net/neemuch-mandi-bhav/", "Neemuch")
+    table = mandirate.scrape()
+    mandirate.save_to_file(table)
     return render_template('Neemuch.html')
 
 
 @app.route('/mandsore')
 def mandsor():
-    Mandirate("https://ekisan.net/mandsaur-mandi-bhav/", "Mandsore")
+    mandirate = Mandirate("https://ekisan.net/mandsaur-mandi-bhav/", "Mandsore")
+    table = mandirate.scrape()
+    mandirate.save_to_file(table)
     return render_template('Mandsore.html')
 
 @app.route('/badnagar')
 def badnagar():
-    Mandirate("https://ekisan.net/badnagar-mandi-bhav/", "Badnagar")
+    mandirate = Mandirate("https://ekisan.net/badnagar-mandi-bhav/", "Badnagar")
+    table = mandirate.scrape()
+    mandirate.save_to_file(table)
     return render_template('Badnagar.html')
 
 
 @app.route('/indore')
 def indor():
-    Mandirate("https://ekisan.net/indore-mandi-bhav/", "Indore")
+    mandirate = Mandirate("https://ekisan.net/indore-mandi-bhav/", "Indore")
+    table = mandirate.scrape()
+    mandirate.save_to_file(table)
     return render_template('Indore.html')
 
-@app.route('/mcx')
-def mxc():
-    m = mcx()
-    return render_template('mcx.html')
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
